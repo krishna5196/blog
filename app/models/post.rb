@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   STATUS = ['Draft','Publised','Archived']
 
   belongs_to :user
+  has_many :comments
   # has_many :comments, dependent: destroy
 
   validates_length_of :title, :maximum => 50

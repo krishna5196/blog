@@ -21,7 +21,6 @@
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-				<td><%== '<a href="' + url_for(:controller => 'comments',:action => 'add_comment_to_post', :id => post.id)+ '">Comment</a>' %></td>
       </tr>
     <% end %>
   </tbody>
