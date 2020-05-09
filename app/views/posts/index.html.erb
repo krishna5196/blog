@@ -14,14 +14,24 @@
 
   <tbody>
     <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.body %></td>
-        <td><%= post.status %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+			<% if post.status != 'Archieved' || post.user == current_user %>
+				<tr>
+					<td><%= post.title %></td>
+					<td><%= post.body %></td>
+					<td><%= post.status %></td>
+					<td><%= link_to 'Show', post %></td>
+					<td><%= link_to 'Edit', edit_post_path(post) %></td>
+					<% if post.user == current_user %>
+						<td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					<% end %>
+					<% if post.status == 'Draft' %>
+						<td><%= link_to 'Activate', :controller => 'posts', :action => 'activate_post', :id => post.id %></td>
+					<% end %>
+					<% if post.status == 'Published' %>
+						<td><%= link_to 'Archieve', :controller => 'posts', :action => 'archieve_post', :id => post.id %></td>
+					<% end %>
+				</tr>
+			<% end %>
     <% end %>
   </tbody>
 </table>

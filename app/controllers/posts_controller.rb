@@ -27,6 +27,13 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
 
+    # if @post.save
+    #   redirect_to :action => 'index'
+    # else
+    #   flash[:error] = 'Bad.'
+    #   redirect_to :action => 'new'
+    # end
+
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -62,6 +69,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def activate_post
+    @post = Post.find(params[:id])
+    @post.status = "Published"
+    @post.save
+    redirect_to :action => 'index'
+  end
+
+  def archieve_post
+    @post = Post.find(params[:id])
+    @post.status = "Archieved"
+    @post.save!
+    redirect_to :action => 'index'
+  end
 
 
   private
